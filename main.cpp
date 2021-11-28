@@ -182,7 +182,9 @@ vector<string> arguements(vector<string> words) {
         if (words[k].find('*') != string :: npos ||  words[k].find('?') != string :: npos) {
             string adress = words[k];
             string line;
+            bool flag;
             if (adress.substr(0, 2) == "./"){
+                flag = true;
                 adress = adress.substr(2, adress.length() - 2);
             }
             vector<string> dirs = split_adress(adress);
@@ -324,6 +326,9 @@ vector<string> arguements(vector<string> words) {
                 queue = queue_new;
             }
             for (int j = 0; j < queue.size(); ++j) {
+                if (flag){
+                    queue[j] = queue[j].substr(2, queue[j].length() - 2);
+                }
                 arguements.push_back(queue[j]);
             }
         }
@@ -344,7 +349,7 @@ int find(vector<string> words, string sample) {
 
 void free_args(char** args, unsigned long n) {
     //for (int i = 0; i < n; ++i) {
-      //  free(args[i]);
+    //  free(args[i]);
     //}
     free(args);
 }
